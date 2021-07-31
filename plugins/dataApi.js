@@ -8,7 +8,8 @@ export default function(context, inject) {
 
   inject("dataApi", {
     getHome,
-    getReviewsByHomeId
+    getReviewsByHomeId,
+    getUsersByHomeId
   });
 
   async function getHome(homeId) {
@@ -30,6 +31,23 @@ export default function(context, inject) {
           body: JSON.stringify({
             filters: `homeId:${homeId}`,
             hitsPerPage: 2,
+            attributesToHighlight: []
+          })
+        })
+      );
+    } catch (error) {
+      return getErrorResponse(error);
+    }
+  }
+
+  async function getUsersByHomeId(homeId) {
+    try {
+      return unwrap(
+        await fetch(`https://${appId}-dsn.algolia.net/1/indexes/users/query`, {
+          headers,
+          method: "POST",
+          body: JSON.stringify({
+            filters: `homeId:${homeId}`,
             attributesToHighlight: []
           })
         })
