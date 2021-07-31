@@ -1,0 +1,14 @@
+{
+  "name": "mastering-nuxt",
+  "version": "1.0.0",
+  "description": "Following mastering nuxt tutorials step by step",
+  "dependencies": {
+    "nuxt": "^2.15.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sanjit Singh<iamsanjit@hotmail.com>",
+  "license": "ISC"
+}
