@@ -18,6 +18,7 @@
     {{ home.reviewValue }} <br />
     {{ home.guests }} guests, {{ home.beds }} beds,
     {{ home.bathrooms }} bathrooms <br />
+    <div style="width: 800px; height: 500px" ref="map"></div>
   </div>
 </template>
 
@@ -27,6 +28,13 @@ export default {
   head() {
     return {
       title: this.home.title,
+      script: [
+        {
+          src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyB5eBV6JJFDtBzd2S6siCHl0IrkwyMWPlI&libraries=places",
+          hid: "map",
+          defer: true,
+        },
+      ],
     };
   },
   data() {
@@ -36,6 +44,21 @@ export default {
   },
   created() {
     this.home = homes.find((home) => home.objectID === this.$route.params.id);
+  },
+  mounted() {
+    const position = new window.google.maps.LatLng(
+      this.home._geoloc.lat,
+      this.home._geoloc.lng
+    );
+    const mapOptions = {
+      zoom: 18,
+      center: position,
+      disableDefaultUI: true,
+      zoomControl: true,
+    };
+    const map = new window.google.maps.Map(this.$refs.map, mapOptions);
+    const marker = new window.google.maps.Marker({ position });
+    marker.setMap(map);
   },
 };
 </script>
