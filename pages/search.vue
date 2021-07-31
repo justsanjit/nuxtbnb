@@ -1,8 +1,10 @@
 <template>
   <div>
-    {{ lat }} / {{ lng }} / {{ label }}<br />
-    <div v-for="home in homes" :key="home.objectID">{{ home.title }}</div>
-    <br />
+    {{ lat }} / {{ lng }} / {{ label }}
+    <div v-if="homes.length > 0">
+      <home-row v-for="home in homes" :key="home.objectID" :home="home" /><br />
+    </div>
+    <div v-else>No results found.</div>
   </div>
 </template>
 
@@ -16,6 +18,11 @@ export default {
       label: query.label,
       lat: query.lat,
       lng: query.lng,
+    };
+  },
+  head() {
+    return {
+      title: "Homes around " + this.label,
     };
   },
 };
